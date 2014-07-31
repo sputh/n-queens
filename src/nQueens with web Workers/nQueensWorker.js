@@ -1,4 +1,3 @@
-// Replace "C=n==c" with if(n==c)C++ for a faster run time
 function Q(leftDiag,column,rightDiag,Count,nMask){
   if (nMask == column) Count++;
   var pos=~(leftDiag|column|rightDiag)&nMask,rightmostBit;
@@ -13,8 +12,16 @@ function Q(leftDiag,column,rightDiag,Count,nMask){
 var left, cols, right, nMask;
 self.addEventListener('message', function(e) {
   var data = e.data;
+
   left = data.l;
   cols = data.c;
   right = data.r
   nMask = data.n;
+  //console.log('l,c,r,n: '+left +','+ cols +','+ right +','+ nMask);
+  var count = Q(left,cols,right,0,nMask);
+  //console.log('count = '+ count)
+  self.postMessage({result:count});
+  self.close();
 });
+
+
